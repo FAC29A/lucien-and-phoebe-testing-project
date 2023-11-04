@@ -1,3 +1,79 @@
-h1 {
-    color: red; 
+body {
+    font-family: Arial, sans-serif;
+    
+}
+
+.app {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+}
+
+.todo-list {
+    list-style: none;
+    padding: 0;
+    
+}
+
+li {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    border: 1px dotted #ccc; /* Dotted border for the circle */
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+ 
+}
+
+/* .input-container .circle {
+    width: 20px;
+    height: 20px;
+    border: 5px dotted #ccc;
+    border-radius: 70%; 
+    margin-right: 10px;
+    cursor: pointer;
+} */
+
+input[type="text"] {
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent;
+}
+
+.input-container {
+    display: flex;
+    align-items: stretch;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-bottom: 1px dotted #ccc;
+    margin-bottom: -1px;
+    margin-right: 10px;
+}
+
+input[type="text"]::placeholder {
+    color: #ccc;
+}
+
+
+/* .todo-text {
+    flex-grow: 1;
+} */
+
+.complete-circle {
+    background-color: blue;}
+
+.complete-text {
+    text-decoration: line-through;
+    color: #888;
 }
