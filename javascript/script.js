@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const circle = this;
         const listItem = circle.parentElement;
         listItem.classList.toggle('complete');
-        listItem.querySelector('.circle').classList.toggle('complete');
+        listItem.querySelector('.circle').classList.toggle('complete-circle');
         listItem.querySelector('.todo-text').classList.toggle('complete-text');
     }
 });
