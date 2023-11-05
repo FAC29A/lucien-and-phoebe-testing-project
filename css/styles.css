@@ -24,7 +24,7 @@ li {
    
 }
 
-/* completed items  */
+/* the items on the list  */
 .todo-text{
     border-bottom: 1px solid #ccc;
     width: 90%; 
@@ -43,7 +43,7 @@ li {
 
 
 
-input[type="text"] {
+input[type="text"], .todo-text{
     font-size: 16px;
     border: none;
     border-bottom: 1px solid #ccc;
