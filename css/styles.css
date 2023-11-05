@@ -20,6 +20,11 @@ li {
     display: flex;
     align-items: center;
     margin: 10px 0;
+    /* border-bottom: 1px solid #ccc; */
+}
+
+.todo-text{
+  
     border-bottom: 1px solid #ccc;
 }
 
