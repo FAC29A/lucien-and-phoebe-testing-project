@@ -13,6 +13,7 @@ body {
 .todo-list {
     list-style: none;
     padding: 0;
+  
     
 }
 
@@ -20,12 +21,14 @@ li {
     display: flex;
     align-items: center;
     margin: 10px 0;
-    /* border-bottom: 1px solid #ccc; */
+   
 }
 
+/* completed items  */
 .todo-text{
-  
     border-bottom: 1px solid #ccc;
+    width: 90%; 
+    text-align: left;
 }
 
 .circle {
@@ -38,25 +41,19 @@ li {
  
 }
 
-/* .input-container .circle {
-    width: 20px;
-    height: 20px;
-    border: 5px dotted #ccc;
-    border-radius: 70%; 
-    margin-right: 10px;
-    cursor: pointer;
-} */
+
 
 input[type="text"] {
     font-size: 16px;
     border: none;
     border-bottom: 1px solid #ccc;
     background-color: transparent;
+    width: 90%; 
 }
 
 .input-container {
     display: flex;
-    align-items: stretch;
+    
 }
 
 input[type="text"]:focus {

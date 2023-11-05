@@ -15,9 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="circle"></div>
             <span class="todo-text">${text}</span>
         `;
-
-        listItem.querySelector('.circle').addEventListener('click', toggleComplete);
         todoList.appendChild(listItem);
+        listItem.querySelector('.circle').addEventListener('click', toggleComplete);
     }
 
     function toggleComplete() {
@@ -27,4 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
         listItem.querySelector('.circle').classList.toggle('complete-circle');
         listItem.querySelector('.todo-text').classList.toggle('complete-text');
     }
+
+    // write a function - "completed item automatic push to the top of list"
+    // write a function - "the completed items can be toggle to hide or show"
+    // write a fucntion - "the completed items to move to the top  "
 });
