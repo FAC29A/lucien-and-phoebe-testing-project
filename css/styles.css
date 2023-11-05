@@ -37,8 +37,7 @@ li {
     border: 1px dotted #ccc; /* Dotted border for the circle */
     border-radius: 50%;
     margin-right: 10px;
-    cursor: pointer;
- 
+    cursor: pointer; 
 }
 
 

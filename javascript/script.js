@@ -32,6 +32,18 @@
 document.addEventListener('DOMContentLoaded', function () {
     const todoInput = document.getElementById('todoInput');
     const todoList = document.getElementById('todoList');
+    const showHideCompleted = document.getElementById('showHideCompleted')
+
+    // Show/hind text completed to be able clicked and 
+    showHideCompleted.addEventListener('click', function(){
+        if (showHideCompleted.textContent ===  "hide completed"){
+            showHideCompleted.textContent = "show completed"}
+            else {
+            showHideCompleted.textContent = "hide completed"}
+    }
+    )
+
+
 
     todoInput.addEventListener('keyup', function (event) {
         if (event.key === 'Enter' && todoInput.value.trim() !== '') {
