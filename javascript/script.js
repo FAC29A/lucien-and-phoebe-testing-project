@@ -37,9 +37,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Show/hind text completed to be able clicked and 
     showHideCompleted.addEventListener('click', function(){
         if (showHideCompleted.textContent ===  "hide completed"){
-            showHideCompleted.textContent = "show completed"}
+            showHideCompleted.textContent = "show completed"; 
+             hideCompleted()
+        
+        }
             else {
-            showHideCompleted.textContent = "hide completed"}
+            showHideCompleted.textContent = "hide completed"; 
+            showCompleted()
+        
+        }
     }
     )
 
@@ -69,5 +75,19 @@ document.addEventListener('DOMContentLoaded', function () {
         listItem.classList.toggle('complete');
         listItem.querySelector('.circle').classList.toggle('complete-circle');
         listItem.querySelector('.todo-text').classList.toggle('complete-text');
+        updateListOrder(); 
     }
+
+    // after toggle complete,  sort the list item 
+    function updateListOrder(){
+        const completedItems = document.querySelectorAll('.complete'); 
+        completedItems.forEach(item => todoList.prepend(item))
+
+    }
+// function hideCompleted()
+// function showCompleted()
 });
+
+
+
+
