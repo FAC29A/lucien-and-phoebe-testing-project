@@ -78,3 +78,7 @@ input[type="text"]::placeholder {
     text-decoration: line-through;
     color: #888;
 }
+
+.hidden {
+    display: none;
+  }

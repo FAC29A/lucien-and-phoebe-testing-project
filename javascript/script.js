@@ -36,14 +36,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Show/hind text completed to be able clicked and 
     showHideCompleted.addEventListener('click', function(){
-        if (showHideCompleted.textContent ===  "hide completed"){
-            showHideCompleted.textContent = "show completed"; 
-             hideCompleted()
+        if (showHideCompleted.textContent ===  "show completed"){
+            showHideCompleted.textContent = "hide completed"; 
+             showCompleted()
         
         }
             else {
-            showHideCompleted.textContent = "hide completed"; 
-            showCompleted()
+            showHideCompleted.textContent = "show completed"; 
+            hideCompleted()
         
         }
     }
@@ -78,14 +78,25 @@ document.addEventListener('DOMContentLoaded', function () {
         updateListOrder(); 
     }
 
+
+
     // after toggle complete,  sort the list item 
     function updateListOrder(){
-        const completedItems = document.querySelectorAll('.complete'); 
+        const completedItems = document.querySelectorAll('.complete');
         completedItems.forEach(item => todoList.prepend(item))
 
     }
-// function hideCompleted()
-// function showCompleted()
+function hideCompleted(){
+    const completedItems = document.querySelectorAll('.complete');
+    completedItems.forEach(item => item.classList.add('hidden')); 
+}
+
+function showCompleted(){
+    const completedItems = document.querySelectorAll('.complete');
+    completedItems.forEach(item => item.classList.remove('hidden')); 
+}
+
+
 });
 
 
