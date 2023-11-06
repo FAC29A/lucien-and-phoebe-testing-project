@@ -1,18 +1,16 @@
-document.addEventListener('DOMContentLoaded', function () {
+
     const todoInput = document.getElementById('todoInput');
     const todoList = document.getElementById('todoList');
     const showHideCompleted = document.getElementById('showHideCompleted')
 
     let defaultHideCompleted = true; // A flag to set the default state to hide completed
 
-  
 
     // Show/hind text in button to be able clicked and toggle
     showHideCompleted.addEventListener('click', function(){
         if (showHideCompleted.textContent == "show completed"){
             showHideCompleted.textContent = "hide completed"; 
-             showCompleted()
-        
+             showCompleted(); 
         }
             else {
             showHideCompleted.textContent = "show completed"; 
@@ -62,16 +60,14 @@ document.addEventListener('DOMContentLoaded', function () {
         listItem.querySelector('.circle').classList.toggle('complete-circle');
         listItem.querySelector('.todo-text').classList.toggle('complete-text');
         if (defaultHideCompleted) {
-            // If it's set to hide completed by default, hide the item
-            listItem.classList.add('hidden');
+            // If it's set to hide completed by default, hide the item. and then put the complete item to top of list 
             updateListOrder(); 
+            listItem.classList.add('hidden');
+            
         }else {
+            // if it's not hidden, then just simple put the completed items to the top of the list 
             updateListOrder(); 
         }
-        
-        
-        
-        // updateListOrder(); 
     }
 
 
@@ -91,10 +87,11 @@ function showCompleted(){
         defaultHideCompleted = false; // Set the flag to show completed items
         const completedItems = document.querySelectorAll('.complete');
         completedItems.forEach(item => item.classList.remove('hidden'));
+        updateListOrder(); // Move completed items to the top
 }
 
 
-});
+
 
 
 
