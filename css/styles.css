@@ -42,12 +42,13 @@ li {
 
 
 
-input[type="text"], .todo-text{
+textarea[type="text"], .todo-text{
     font-size: 16px;
     border: none;
     border-bottom: 1px solid #ccc;
     background-color: transparent;
     width: 90%; 
+   
 }
 
 .input-container {
@@ -55,14 +56,14 @@ input[type="text"], .todo-text{
     
 }
 
-input[type="text"]:focus {
+textarea[type="text"]:focus {
     outline: none;
     border-bottom: 1px dotted #ccc;
     margin-bottom: -1px;
     margin-right: 10px;
 }
 
-input[type="text"]::placeholder {
+textarea[type="text"]::placeholder {
     color: #ccc;
 }
 

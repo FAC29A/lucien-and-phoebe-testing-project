@@ -1,4 +1,6 @@
 
+    
+    // todoInput is textarea element  of input 
     const todoInput = document.getElementById('todoInput');
     const todoList = document.getElementById('todoList');
     const showHideCompleted = document.getElementById('showHideCompleted')
@@ -11,6 +13,7 @@
         if (showHideCompleted.textContent == "show completed"){
             showHideCompleted.textContent = "hide completed"; 
              showCompleted(); 
+
         }
             else {
             showHideCompleted.textContent = "show completed"; 
@@ -19,6 +22,10 @@
         }
     }
     )
+    todoInput.addEventListener('input', function(){
+        this.style.height = auto; 
+        this.style.height = this.scrollHeight + 'px'; 
+    })
 
     // event listner press enter once finish the input will push the item to list and create a new line of  input 
     todoInput.addEventListener('keyup', function (event) {
@@ -32,8 +39,7 @@
         const listItem = document.createElement('li');
         listItem.innerHTML = `
             <div class="circle"></div>
-            <input class="todo-text" type=""text value="${text}" disable>
-            
+            <textarea class="todo-text"  disable>${text}</textarea>
         `;
 
         // if complete is in show status, and list has any items that is complete. the item will be hidden
