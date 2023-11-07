@@ -1,12 +1,15 @@
 
     
+
     // todoInput is textarea element  of input 
     const toDo = [];
+
     const todoInput = document.getElementById('todoInput');
     const todoList = document.getElementById('todoList');
     const showHideCompleted = document.getElementById('showHideCompleted')
 
     let defaultHideCompleted = true; // A flag to set the default state to hide completed
+
 
 
     // // Show/hind text in button to be able clicked and toggle
@@ -28,14 +31,18 @@
     //     this.style.height = this.scrollHeight + 'px'; 
     // })
 
+
     // event listner press enter once finish the input will push the item to list and create a new line of  input 
     todoInput.addEventListener('keyup', function (event) {
         if (event.key === 'Enter' && todoInput.value.trim() !== '') {
+
             const toDoValue = todoInput.value;
             createNewToDo(toDoValue);
+
             todoInput.value = '';
         }
     });
+
 
     function addToDoItem(item) {
         const itemElement = document.createElement("div");
@@ -136,6 +143,7 @@
         toDo.unshift(item);
 
         const { itemElement, inputElement } = addToDoItem(item);
+
     }
 
     function displayToDos() {
