@@ -118,3 +118,21 @@ main {
 .actions button:last-of-type {
 	margin-right: 0;
 }
+
+
+
+
+/* ------------ */
+.circle {
+    width: 20px;
+    height: 20px;
+    border: 1px dotted #ccc; /* Dotted border for the circle */
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer; 
+}
+
+.input-container {
+    display: flex;
+    
+}

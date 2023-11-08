@@ -1,36 +1,45 @@
 
     const listElement = document.getElementById("list");
-    const createBtnElement = document.getElementById("create");
+
+    // this is actually the to do input     change the variable name later 
+    const createBtnElement = document.getElementById('todoInput');
 
     
     
     let toDo = [];
 
-    createBtnElement.addEventListener('click', CreateNewTodo);
+    createBtnElement.addEventListener('keyup', function(event){ CreateNewTodo(event)});
 
-    function CreateNewTodo () {
-        const item = {
-            id: new Date().getTime(),
-            text: "",
-            complete: false
-        }
+    function CreateNewTodo (event) {
+        if(event.key ==="Enter" & createBtnElement.value.trim() !== "" ){
+            const item = {
+                id: new Date().getTime(),
+                text: "",
+                complete: false
+            }
+
+        // input's value assign foor item object's text property
+        item.text = createBtnElement.value
+        createBtnElement.value = '';
+
         toDo.unshift(item);
 
         const { itemElement, inputElement } = CreateTodoElement(item);
-
+    
         listElement.prepend(itemElement);
+        
+    
+        // inputElement.removeAttribute("disabled");
+        // inputElement.focus();
+        console.log(inputElement)
+    
+        save();
 
-        inputElement.removeAttribute("disabled");
-        inputElement.focus();
+        }
 
-        Save();
 }
 
     
-
-
-
-  
 
 
     function CreateTodoElement(item) {
@@ -48,20 +57,18 @@
         const inputElement = document.createElement("input");
         inputElement.type = "text";
         inputElement.value = item.text;
-        inputElement.setAttribute("disabled","");
+        inputElement.setAttribute("readonly","");
 
         const actionElement = document.createElement("div");
         actionElement.classList.add("actions");
 
-        const editButtonElement = document.createElement("button");
-        editButtonElement.classList.add("materialIcons");
-        editButtonElement.innerText = "edit";
+        
 
         const removeButtonElement = document.createElement("button");
         removeButtonElement.classList.add("materialIcons","removeButton");
         removeButtonElement.innerText = "removeCircle";
 
-        actionElement.append(editButtonElement);
+       
         actionElement.append(removeButtonElement);
 
         itemElement.append(checkbox);
@@ -80,29 +87,44 @@
             }
             save();
         })
-
+        // test and commnet out after below 3 lines
         inputElement.addEventListener("input", () => {
             item.text = inputElement.value;
         })
 
         inputElement.addEventListener("blur", () => {
-            inputElement.setAttribute("disabled","");
+            inputElement.setAttribute("readonly","");
+            console.log("blllllur")
             save();
         })
 
-        editButtonElement.addEventListener("click", () => {
-            inputElement.removeAttribute("disabled");
+
+        inputElement.addEventListener("click", () => {
+            inputElement.removeAttribute("readonly");
             inputElement.focus();
+            console.log("ediiiiiit"); 
         })
+
+        inputElement.addEventListener("keyup", (event) => {
+    if (event.key === "Enter" && createBtnElement.value.trim() !== "") {
+        inputElement.setAttribute("readonly");
+        console.log("enteeeeer");
+
+        // Remove focus from the input element
+        inputElement.blur();
+        return;
+    }
+});
 
         removeButtonElement.addEventListener("click", () => {
             toDo = toDo.filter(t => t.id != item.id);
 
             itemElement.remove();
+            console.log("remooooove"); 
             save();
         })
 
-        return { itemElement,inputElement,editButtonElement,removeButtonElement };
+        return { itemElement,inputElement,removeButtonElement };
 
 
 
