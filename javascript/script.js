@@ -21,7 +21,6 @@
 
      // adjust input's textarea element height based on content text
      todoInputField.addEventListener('input', function(){
-
         this.style.height = "auto"; 
         this.style.height = this.scrollHeight + 'px'; 
     })
@@ -31,20 +30,20 @@
 
     todoInputField.addEventListener('keyup', function(event){ CreateNewTodo(event)});
 
+
     function CreateNewTodo (event) {
         if(event.key ==="Enter" & todoInputField.value.trim() !== "" ){
-    
             const item = {
                 id: new Date().getTime(),
                 text: "",
                 complete: false
             }
 
+
         // input's value assign for item object's text property
         item.text = todoInputField.value;
 
         todoInputField.value = '';
-
 
         toDo.unshift(item);
 

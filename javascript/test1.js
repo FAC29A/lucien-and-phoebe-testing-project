@@ -34,3 +34,15 @@ test("CreateNewTodo should add a new to-do item when Enter key is pressed and in
     equal(todoInputField.value, '', "the input field is cleared after adding a new item");
 
 })
+
+test("completed items are hidden", () => {
+    const testContainer = document.createElement("div");
+
+    const testCase = document.createElement("div");
+    testCase.classList.add("complete");
+
+    testContainer.appendChild(testCase);
+
+    assert(testCase.classList.contains("hidden"), "completed items are hidden");
+})
+
