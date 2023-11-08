@@ -83,7 +83,7 @@
 
         
 
-        const inputElement = document.createElement("input");
+        const inputElement = document.createElement("textarea");
         inputElement.type = "text";
         inputElement.value = item.text;
         inputElement.setAttribute("readonly","");
