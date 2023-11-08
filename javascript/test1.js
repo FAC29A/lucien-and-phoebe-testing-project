@@ -45,3 +45,4 @@ test("completed items are hidden", () => {
 
     assert(testCase.classList.contains("hidden"), "completed items are hidden");
 })
+
