@@ -2,7 +2,8 @@
     const listElement = document.getElementById("list");
 
     // this is actually the to do input     change the variable name later 
-    const createBtnElement = document.getElementById('todoInput');
+    const todoInputField = document.getElementById('todoInput');
+    
 
     let defaultHideCompleted = true; // A flag to set the default state to hide completed
 
@@ -20,7 +21,8 @@
     )
 
      // adjust input's textarea element height based on content text
-     createBtnElement.addEventListener('input', function(){
+     todoInputField.addEventListener('input', function(){
+        
         this.style.height = "auto"; 
         this.style.height = this.scrollHeight + 'px'; 
     })
@@ -28,10 +30,12 @@
     
     let toDo = [];
 
-    createBtnElement.addEventListener('keyup', function(event){ CreateNewTodo(event)});
+    todoInputField.addEventListener('keyup', function(event){ CreateNewTodo(event)});
+    
 
     function CreateNewTodo (event) {
-        if(event.key ==="Enter" & createBtnElement.value.trim() !== "" ){
+        if(event.key ==="Enter" & todoInputField.value.trim() !== "" ){
+            
             const item = {
                 id: new Date().getTime(),
                 text: "",
@@ -39,8 +43,10 @@
             }
 
         // input's value assign foor item object's text property
-        item.text = createBtnElement.value
-        createBtnElement.value = '';
+        item.text = todoInputField.value
+        
+        todoInputField.value = '';
+        
 
         toDo.unshift(item);
 

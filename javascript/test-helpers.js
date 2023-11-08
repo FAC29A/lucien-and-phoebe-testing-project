@@ -23,3 +23,12 @@ function test(name, testFunction) {
   testFunction();
   console.groupEnd(name);
 }
+
+function assert(condition, message) {
+  if (!condition) {
+    console.error("Fail: " + message);
+  }
+  else {
+    console.info("Pass: " + message);
+  }
+}
