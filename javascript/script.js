@@ -97,24 +97,27 @@
             console.log("blllllur")
             save();
         })
-
+        let isEditMode = false;
 
         inputElement.addEventListener("click", () => {
-            inputElement.removeAttribute("readonly");
-            inputElement.focus();
-            console.log("ediiiiiit"); 
-        })
+            if (!isEditMode) {
+                inputElement.removeAttribute("readonly");
+                inputElement.focus();
+                console.log("ediiiiiit");
+                isEditMode = true;
+            }
+        });
+        
+        inputElement.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" && isEditMode) {
+                inputElement.setAttribute("readonly", "");
+                console.log("enteeeeer");
+                inputElement.blur();
+                isEditMode = false;
+            }
+        });
 
-        inputElement.addEventListener("keyup", (event) => {
-    if (event.key === "Enter" && createBtnElement.value.trim() !== "") {
-        inputElement.setAttribute("readonly");
-        console.log("enteeeeer");
-
-        // Remove focus from the input element
-        inputElement.blur();
-        return;
-    }
-});
+       
 
         removeButtonElement.addEventListener("click", () => {
             toDo = toDo.filter(t => t.id != item.id);
@@ -152,7 +155,7 @@
 
             const {itemElement} = CreateTodoElement(item);
 
-            listElement.append(itemElement);
+            listElement.appendChild(itemElement);
         }
     }
 

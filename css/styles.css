@@ -63,9 +63,6 @@ main {
 	margin-bottom: 1.5rem;
 }
 
-.item:last-of-type {
-	margin-bottom: 0;
-}
 
 .item input[type="checkbox"] {
 	margin-right: 1rem;
@@ -83,7 +80,7 @@ main {
 	margin-right: 1rem;
 }
 
-.item input[type="text"]:not(:disabled) {
+.item input[type="text"]:not(:readonly) {
 	border-bottom: 2px solid #fff;
 }
 
@@ -95,7 +92,7 @@ main {
 	text-decoration: line-through;
 }
 
-.item:hover,
+
 .item:focus-within {
 	outline: 2px solid #fff;
 }
@@ -136,3 +133,4 @@ main {
     display: flex;
     
 }
+
