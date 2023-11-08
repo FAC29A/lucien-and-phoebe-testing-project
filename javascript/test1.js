@@ -34,5 +34,3 @@ test("CreateNewTodo should add a new to-do item when Enter key is pressed and in
     equal(todoInputField.value, '', "the input field is cleared after adding a new item");
 
 })
-
-
