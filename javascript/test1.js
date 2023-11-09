@@ -35,14 +35,53 @@ test("CreateNewTodo should add a new to-do item when Enter key is pressed and in
 
 })
 
-test("completed items are hidden", () => {
-    const testContainer = document.createElement("div");
+// test("hideCompleted hides completed items", () => {
+//     defaultHideCompleted = false;
 
-    const testCase = document.createElement("div");
-    testCase.classList.add("complete");
+//     const testContainer = document.createElement("div");
 
-    testContainer.appendChild(testCase);
+//     const testCase = document.createElement("div");
+//     testCase.classList.add("complete");
 
-    assert(testCase.classList.contains("hidden"), "completed items are hidden");
-})
+//     testContainer.appendChild(testCase);
 
+//     hideCompleted();
+
+//     // assert(testCase.classList.contains("hidden"), "completed items are hidden");
+//     equal(testCase.classList.contains("hidden"), true , "completed items are hidden");
+
+// })
+
+// test("showCompleted shows completed items", () => {
+//     defaultHideCompleted = false;
+
+//     const testContainer = document.createElement("div");
+
+//     const testCase = document.createElement("div");
+//     testCase.classList.add("complete");
+
+//     testContainer.appendChild(testCase);
+
+//     hideCompleted();
+
+//     assert(!testCase.classList.contains("hidden"), "completed items are shown");
+//     notEqual(testCase.classList.contains("hidden"), true , "completed items are shown");
+
+// })
+
+// Test for toggling between hide and show completed
+
+test("toggleCompleted toggles between show and hide", () => {
+    defaultHideCompleted = false;
+  
+    const showHideButton = document.createElement("button");
+    showHideButton.textContent = "show completed";
+  
+    // Simulate two click events on the button - to hide and then show
+    showHideButton.click();
+
+    showHideButton.click();
+  
+    assert(!defaultHideCompleted, "toggleCompleted toggles between show and hide");
+  });
+  

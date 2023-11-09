@@ -165,7 +165,7 @@
             }
         });
 
-       function updateItemAppearance(item, itemElement, circle) {
+function updateItemAppearance(item, itemElement, circle) {
     if (item.complete) {
         itemElement.classList.add("complete");
         circle.classList.add("complete-circle")
@@ -250,13 +250,17 @@
         const completedItems = document.querySelectorAll('.complete');
         completedItems.forEach(item => listElement.prepend(item))
     }
-function hideCompleted(){
+
+    
+// This toggles between hiding and showing completed - does not hide them in the first place
+
+
+    function hideCompleted(){
         defaultHideCompleted = true; // Set the flag to hide completed items
         const completedItems = document.querySelectorAll('.complete');
         completedItems.forEach(item => item.classList.add('hidden'));
 }
-
-function showCompleted(){
+    function showCompleted(){
         defaultHideCompleted = false; // Set the flag to show completed items
         const completedItems = document.querySelectorAll('.complete');
         completedItems.forEach(item => item.classList.remove('hidden'));
