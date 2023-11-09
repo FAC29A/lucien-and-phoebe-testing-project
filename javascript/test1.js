@@ -1,24 +1,4 @@
-
-test("CreateTodoElement Converts Text Property to Input Element Value", ()=>{
-const item = {
-    id: 123,
-    text: "To Do Test",
-    complete: false
-}
-
-const expected = item.text;
-const { inputElement } = CreateTodoElement(item);
-const resultText = inputElement.value;
-
-equal(expected,resultText,"CreateTodoElement Converts Text Property to Input Element Value");
-
-})
-
 test("CreateNewTodo should add a new to-do item when Enter key is pressed and input is not empty", ()=> {
-    // command to press enter key
-    // expected result
-    // actual result
-    // equal function
 
     const mockEvent = {
         key: "Enter"
@@ -33,6 +13,52 @@ test("CreateNewTodo should add a new to-do item when Enter key is pressed and in
     equal(toDo.length, initialToDoLength +1, "a new item is added to the toDo list");
     equal(todoInputField.value, '', "the input field is cleared after adding a new item");
 
+})
+
+test("CreateTodoElement Converts Text Property to Input Element Value", ()=>{
+    const item = {
+        id: 123,
+        text: "To Do Test",
+        complete: false
+    }
+    
+    const expected = item.text;
+    const { inputElement } = CreateTodoElement(item);
+    const resultText = inputElement.value;
+    
+    equal(expected,resultText,"CreateTodoElement Converts Text Property to Input Element Value");
+    
+    })
+
+// Test for display to-dos
+
+
+
+// Test for hide when mark as completed (not toggle)
+
+test("updateItemAppearance adds the class 'hidden' to the item and hides completed item", () => {
+    defaultHideCompleted = true;
+
+    const item = {
+        id: 123,
+        text: "To Do Test",
+        complete: true
+    }
+    const { itemElement } = CreateTodoElement(item);
+    // itemElement.classList.add("item");
+
+    const circle = document.createElement("div");
+    circle.classList.add("circle");
+
+    console.log("Before updateItemAppearance:", itemElement.classList);
+
+    circle.click();
+
+    console.log("After updateItemAppearance:", itemElement.classList);
+
+
+    assert((itemElement.classList.contains("hidden")), "updateItemAppearance adds the class 'hidden' to the item and hides completed item");
+     
 })
 
 // test("hideCompleted hides completed items", () => {

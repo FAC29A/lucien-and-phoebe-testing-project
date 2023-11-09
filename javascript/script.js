@@ -251,7 +251,7 @@ function updateItemAppearance(item, itemElement, circle) {
         completedItems.forEach(item => listElement.prepend(item))
     }
 
-    
+
 // This toggles between hiding and showing completed - does not hide them in the first place
 
 
