@@ -1,3 +1,6 @@
+
+
+
 test("CreateNewTodo should add a new to-do item when Enter key is pressed and input is not empty", ()=> {
 
     const mockEvent = {
@@ -111,3 +114,53 @@ test("toggleCompleted toggles between show and hide", () => {
     assert(!defaultHideCompleted, "toggleCompleted toggles between show and hide");
   });
   
+
+
+
+
+//   removeButtonElement.addEventListener("click", () => {
+//     toDo = toDo.filter(t => t.id != item.id);
+
+//     itemElement.remove();
+//     console.log("remooooove"); 
+//     save();
+// })
+
+function handleRemoveButtonClick(item) {
+    // Find the item element associated with the item
+    const itemElement = document.querySelector(`[data-id="${item.id}"]`);
+
+    if (itemElement) {
+        // Remove the item element from the DOM
+        itemElement.remove();
+
+        // Remove the item from the toDo array
+        toDo = toDo.filter(t => t.id !== item.id);
+
+        save();
+    }
+}
+
+test("remove an item on click remove button", () =>{
+    
+    
+    const item = {
+        id: 123,
+        text: "text to be removed",
+        complete: false
+    }
+
+    const { itemElement, inputElement, removeButtonElement } = CreateTodoElement(item);
+
+
+    listElement.contains(itemElement)
+
+    // Simulate the click on the remove button with the associated item
+    handleRemoveButtonClick(item);
+
+    // Verify that the item is removed
+    assert(!listElement.contains(itemElement), "Item should be removed from the DOM");
+    assert(!toDo.some(t => t.id === item.id), "Item should be removed from the toDo array");
+});
+
+
