@@ -126,22 +126,23 @@ test("toggleCompleted toggles between show and hide", () => {
 //     save();
 // })
 
-function handleRemoveButtonClick(item) {
-    // Find the item element associated with the item
-    const itemElement = document.querySelector(`[data-id="${item.id}"]`);
 
-    if (itemElement) {
-        // Remove the item element from the DOM
-        itemElement.remove();
-
-        // Remove the item from the toDo array
-        toDo = toDo.filter(t => t.id !== item.id);
-
-        save();
-    }
-}
 
 test("remove an item on click remove button", () =>{
+    function handleRemoveButtonClick(item) {
+        // Find the item element associated with the item
+        const itemElement = document.querySelector(`[data-id="${item.id}"]`);
+    
+        if (itemElement) {
+            // Remove the item element from the DOM
+            itemElement.remove();
+    
+            // Remove the item from the toDo array
+            toDo = toDo.filter(t => t.id !== item.id);
+    
+            save();
+        }
+    }
     
     
     const item = {
