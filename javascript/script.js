@@ -41,6 +41,8 @@
                 text: "",
                 complete: false
             }
+        
+
         // input's value assign for item object's text property
         item.text = todoInputField.value;
 
@@ -55,9 +57,11 @@
         //     listElement.prepend(itemElement); // Move completed items to the top
         // } else {
             listElement.appendChild(itemElement);
+
         // }
-    
+            
         save();
+        return {itemElement}; 
 
         }
 
@@ -107,12 +111,14 @@
             item.text = inputElement.value;
         })
 
+
         circle.addEventListener("click", () => {
             item.complete = !item.complete; // Toggle the complete property
             updateItemAppearance(item, itemElement, circle); // Update the item's appearance
             save();
         });
 
+        // when click outside of item, item become non-editable mode
         inputElement.addEventListener("blur", () => {
             inputElement.setAttribute("readonly","");
             console.log("blllllur")
@@ -120,6 +126,7 @@
         })
         let isEditMode = false;
 
+        // click item to enter the edit mode 
         inputElement.addEventListener("click", () => {
             if (!isEditMode) {
                 inputElement.removeAttribute("readonly");
@@ -129,6 +136,7 @@
             }
         });
         
+        // press enter to exiting the edit mode 
         inputElement.addEventListener("keydown", (event) => {
             if (event.key === "Enter" && isEditMode) {
                 inputElement.setAttribute("readonly", "");
@@ -139,6 +147,8 @@
         });
 
 function updateItemAppearance(item, itemElement, circle) {
+
+
     if (item.complete) {
         itemElement.classList.add("complete");
         circle.classList.add("complete-circle")
@@ -150,12 +160,12 @@ function updateItemAppearance(item, itemElement, circle) {
 
     if (defaultHideCompleted) {
         // If it's set to hide completed by default, hide the item. and then put the complete item to top of list 
-        updateListOrder(); 
+        updateListOrder(listElement); 
         itemElement.classList.add('hidden');
         
     }else {
         // if it's not hidden, then just simple put the completed items to the top of the list 
-        updateListOrder(); 
+        updateListOrder(listElement); 
     }
 }
 
@@ -174,14 +184,11 @@ function updateItemAppearance(item, itemElement, circle) {
         function handleRemoveButtonClick(item) {
             // Find the index of the item to be removed
             const itemIndex = toDo.findIndex(t => t.id === item.id);
-        
             if (itemIndex !== -1) {
                 // Remove the item from the toDo array
                 toDo.splice(itemIndex, 1);
-        
                 // Update the DOM
                 itemElement.remove();
-        
                 save();
             }
         }
@@ -191,7 +198,6 @@ function updateItemAppearance(item, itemElement, circle) {
             // listItem.classList.add('hidden');
             itemElement.classList.add('hidden'); 
         }
-
         return { itemElement,inputElement,removeButtonElement };
     }
 
@@ -226,11 +232,15 @@ function updateItemAppearance(item, itemElement, circle) {
 
 
      // after toggle complete,  sort the list item 
-     function updateListOrder(){
+        function updateListOrder(targetListElement) {
+     
+        // Update the order
         const completedItems = document.querySelectorAll('.complete');
-        completedItems.forEach(item => listElement.prepend(item))
+        completedItems.forEach(item => targetListElement.prepend(item));
+    
+       
     }
-
+   
 
 // This toggles between hiding and showing completed - does not hide them in the first place
 
