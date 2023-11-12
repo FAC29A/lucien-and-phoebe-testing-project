@@ -123,20 +123,19 @@ test("toggleCompleted toggles between show and hide", () => {
 
 test("remove an item from the list on click remove button", () =>{
     function handleRemoveButtonClick(item) {
-        // Find the item element associated with the item
+         // Find the item element associated with the item
         const itemElement = document.querySelector(`[data-id="${item.id}"]`);
     
         if (itemElement) {
-            // Remove the item element from the DOM
+             // Remove the item element from the DOM
             itemElement.remove();
     
-            // Remove the item from the toDo array
+           // Remove the item from the toDo array
             toDo = toDo.filter(t => t.id !== item.id);
     
             save();
         }
     }
-    
     
     const item = {
         id: 123,

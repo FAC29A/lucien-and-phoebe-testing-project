@@ -2,7 +2,7 @@
    
    
    
-   const listElement = document.getElementById("list");
+    const listElement = document.getElementById("list");
     const todoInputField = document.getElementById('todoInput');
     const showHideCompleted = document.getElementById('showHideCompleted'); 
     
@@ -68,8 +68,6 @@
 }
 
     
-
-
     function CreateTodoElement(item) {
         const itemElement = document.createElement("div");
         itemElement.classList.add("item");
