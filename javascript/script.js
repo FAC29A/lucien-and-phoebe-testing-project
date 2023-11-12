@@ -5,9 +5,20 @@
     const listElement = document.getElementById("list");
     const todoInputField = document.getElementById('todoInput');
     const showHideCompleted = document.getElementById('showHideCompleted'); 
+    // >>>>
+    const categoryButtons = document.querySelectorAll('.category-button');
+    const addCategoryButton = document.getElementById('addCategory');
+    const categoriesContainer = document.getElementById('categoriesContainer');
+    let activeCategory = "All";
+
+     // >>>>
+
     
     // use 'let' because need to change the variable later 
     let defaultHideCompleted = true; // A flag to set the default state to hide completed
+    let toDo = [];
+
+
 
     // Show/hind text in button to be able clicked and toggle
     showHideCompleted.addEventListener('click', function(){
@@ -27,10 +38,22 @@
         this.style.height = "auto"; 
         this.style.height = this.scrollHeight + 'px'; 
     })
-
+    // >>>>
+    addCategoryButton.addEventListener('click', function () {
+        const categoryName = prompt("Enter the new category name:");
+        if (categoryName) {
+            addCategory(categoryName);
+        }
+    });
     
-    let toDo = [];
-
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const categoryName = this.dataset.category;
+            showCategory(categoryName);
+        });
+    });
+    // >>>>
+    
     todoInputField.addEventListener('keyup', function(event){ CreateNewTodo(event)});
 
 
@@ -39,7 +62,13 @@
             const item = {
                 id: new Date().getTime(),
                 text: "",
-                complete: false
+                complete: false,
+                  // >>>>
+                category: activeCategory
+
+                  // >>>>
+
+
             }
         
 
@@ -71,6 +100,9 @@
     function CreateTodoElement(item) {
         const itemElement = document.createElement("div");
         itemElement.classList.add("item");
+        // >>>>
+        itemElement.dataset.category = item.category;
+        // >>>>
 
      
         const circle = document.createElement("div");
@@ -198,20 +230,128 @@ function updateItemAppearance(item, itemElement, circle) {
         }
         return { itemElement,inputElement,removeButtonElement };
     }
+    // >>>>
+    function showCategory(categoryName) {
 
-  
+        activeCategory = categoryName; // Update the active category
+        const items = document.querySelectorAll('.item');
+        
+        items.forEach(item => {
+            if (categoryName === "All") {
+                // Show all items in "All" tab
+                item.classList.remove('hidden');
+            } else {
+                if (item.dataset.category === categoryName) {
+                    // Show items of the selected category
+                    item.classList.remove('hidden');
+                } else {
+                    // Hide items of other categories
+                    item.classList.add('hidden');
+                }
+            }
+        });
+        
+        // Hide or show the input containers based on the selected category
+        const categoryInputs = document.querySelectorAll('.category-input');
+        categoryInputs.forEach(input => {
+            if (input.dataset.category === categoryName || categoryName === "All") {
+                input.parentNode.classList.remove('hidden');
+            } else {
+                input.parentNode.classList.add('hidden');
+            }
+        });
+        
+        // Hide or show the dividers and subheadings based on the selected category
+        const dividers = document.querySelectorAll('hr');
+        const subheaders = document.querySelectorAll('.subheader');
+        dividers.forEach(divider => {
+            if (divider.previousElementSibling && divider.previousElementSibling.classList.contains('subheader')) {
+                // Show dividers only after subheadings
+                if (categoryName === "All") {
+                    divider.classList.remove('hidden');
+                } else {
+                    divider.classList.add('hidden');
+                }
+            }
+        });
+        subheaders.forEach(subheader => {
+            if (categoryName === "All") {
+                subheader.classList.remove('hidden');
+            } else {
+                subheader.classList.add('hidden');
+            }
+        });
+    }
+    
+    function addCategory(categoryName) {
+        const categoryButton = document.createElement('button');
+        categoryButton.classList.add('category-button');
+        categoryButton.dataset.category = categoryName;
+        categoryButton.innerText = categoryName;
+        categoryButton.addEventListener('click', function () {
+            showCategory(categoryName);
+        });
+    
+        categoriesContainer.appendChild(categoryButton);
+    }
+    
+    function getCurrentCategory() {
+        const activeCategoryButton = document.querySelector('.category-button.active');
+        return activeCategoryButton ? activeCategoryButton.dataset.category : "All";
+    }
+    // >>>>
 
     function displayToDos() {
         load();
 
-        for (let i=0; i<toDo.length;i++) {
-            const item = toDo[i];
+    // >>>>
+    const categoriesSet = new Set(); // Use a set to store unique categories
 
-            const {itemElement} = CreateTodoElement(item);
+    toDo.forEach(item => {
+        categoriesSet.add(item.category); // Add each category to the set
+    });
 
+    const categories = Array.from(categoriesSet); // Convert the set to an array
+
+    categories.forEach(category => {
+        const subheader = document.createElement("div");
+        subheader.classList.add("subheader");
+        subheader.innerText = category;
+        listElement.appendChild(subheader);
+
+        const items = toDo.filter(item => item.category === category);
+
+        items.forEach(item => {
+            const { itemElement } = CreateTodoElement(item);
             listElement.appendChild(itemElement);
-        }
-    }
+        });
+
+        const divider = document.createElement("hr");
+        listElement.appendChild(divider);
+
+        // Add an input entry below each category
+        const categoryInput = document.createElement("div");
+        categoryInput.classList.add("input-container");
+        categoryInput.innerHTML = `
+            <div class="circle"></div>
+            <textarea type="text" class="category-input" data-category="${category}" placeholder="Add a to-do item for ${category}..."></textarea>
+        `;
+        listElement.appendChild(categoryInput);
+    });
+}
+
+    // >>>>
+    // <<<<<
+
+    //     for (let i=0; i<toDo.length;i++) {
+    //         const item = toDo[i];
+
+    //         const {itemElement} = CreateTodoElement(item);
+
+    //         listElement.appendChild(itemElement);
+    //     }
+    // }
+     // <<<<<
 
     displayToDos();
 
@@ -254,8 +394,17 @@ function updateItemAppearance(item, itemElement, circle) {
         completedItems.forEach(item => item.classList.remove('hidden'));
         updateListOrder(); // Move completed items to the top
 }
-
-
+// >>>>
+// Modify updateListOrder function to consider categories
+function updateListOrder(targetListElement) {
+    const completedItems = document.querySelectorAll('.complete');
+    completedItems.forEach(item => {
+        if (item.dataset.category === getCurrentCategory()) {
+            targetListElement.prepend(item);
+        }
+    });
+}
+// >>>>
 
 
 
