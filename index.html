@@ -13,14 +13,25 @@
 
 			<header>
 				<h1>Your Todos</h1>
+                <!-- >>> -->
+                <div id="categoriesContainer">
+                    <!-- Add default categories -->
+                    <button class="category-button active" data-category="All">All</button>
+                    <button class="category-button" data-category="Work">Work</button>
+                    <button class="category-button" data-category="Personal">Personal</button>
+                </div>
+                <button id="addCategory">Add Category</button>
+                <!-- >>> -->
                 <button id="showHideCompleted">show completed</button>
 			</header>
 			<div class="todo-list" id="list">
 			</div>
+            <!-- >>>> -->
             <div class="input-container">
                 <div class="circle"></div>
                 <textarea type="text" id="todoInput" placeholder="Add a to-do item..."></textarea>
             </div>
+             <!-- >>>> -->
 
 		</div>
         <script src="javascript/script.js"></script>

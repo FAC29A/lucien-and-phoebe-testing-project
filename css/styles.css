@@ -1,4 +1,71 @@
-* {
+
+/* Add styles for category buttons and container */
+#categoriesContainer {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.category-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.category-button.active {
+    font-weight: bold;
+}
+
+/* Style for addCategory button */
+#addCategory {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+/* Adjust the header styles */
+.app header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.app header h1 {
+    font-size: 24px;
+    font-weight: 600; /* Increase font weight for the title */
+}
+
+.app header button {
+    font-size: 16px;
+}
+
+/* Adjust input-container styles */
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Increase margin for better spacing */
+}
+
+/* Add styles for the new category button */
+#addCategory {
+    font-size: 16px;
+}
+
+/* Adjust textarea styles */
+textarea {
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent;
+    width: 100%; /* Adjust width to fill the container */
+    margin-right: 10px; /* Add margin for spacing */
+}
+
+
+
+
+/* * {
 
 	box-sizing: border-box;
 
@@ -92,10 +159,6 @@ body {
 
 
 
-
-
-
-/* ------------ */
 .circle {
     width: 20px;
     height: 20px;
@@ -124,5 +187,5 @@ textarea{
 		background-color: transparent;
 		width: 90%; 
 	   
-	}
+	} */
 	
