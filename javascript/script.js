@@ -1,9 +1,12 @@
 
-    const listElement = document.getElementById("list");
-
-    // this is actually the to do input     change the variable name later 
+   
+   
+   
+   const listElement = document.getElementById("list");
     const todoInputField = document.getElementById('todoInput');
-
+    const showHideCompleted = document.getElementById('showHideCompleted'); 
+    
+    // use 'let' because need to change the variable later 
     let defaultHideCompleted = true; // A flag to set the default state to hide completed
 
     // Show/hind text in button to be able clicked and toggle
@@ -38,7 +41,7 @@
                 text: "",
                 complete: false
             }
-
+        
 
         // input's value assign for item object's text property
         item.text = todoInputField.value;
@@ -47,20 +50,18 @@
 
         toDo.unshift(item);
 
-        const { itemElement, inputElement } = CreateTodoElement(item);
-    
-        // listElement.prepend(itemElement);
-        
-        // console.log(inputElement)
+        const { itemElement } = CreateTodoElement(item);
 
         // if the items has any items that is complete. the item will move to the top of list, otherwise any uncomplete new item will be add from buttom of list  
-        if (itemElement.classList.contains('complete')) {
-            listElement.prepend(itemElement); // Move completed items to the top
-        } else {
+        // if (itemElement.classList.contains('complete')) {
+        //     listElement.prepend(itemElement); // Move completed items to the top
+        // } else {
             listElement.appendChild(itemElement);
-        }
-    
+
+        // }
+            
         save();
+        return {itemElement}; 
 
         }
 
@@ -73,18 +74,9 @@
         const itemElement = document.createElement("div");
         itemElement.classList.add("item");
 
-        // const checkbox = document.createElement("input");
-        // checkbox.type = "checkbox";
-        // checkbox.checked = item.complete;
-
-        // if (item.complete) {
-        //     itemElement.classList.add("complete");
-        // }
-
+     
         const circle = document.createElement("div");
         circle.classList.add("circle");
-
-        
 
         const inputElement = document.createElement("textarea");
         inputElement.type = "text";
@@ -93,8 +85,6 @@
 
         const actionElement = document.createElement("div");
         actionElement.classList.add("actions");
-
-        
 
         const removeButtonElement = document.createElement("button");
         removeButtonElement.classList.add("materialIcons","removeButton");
@@ -115,22 +105,12 @@
         
         // Event
 
-        // checkbox.addEventListener("change", () => {
-        //     item.complete = checkbox.checked;
-        //     if (item.complete) {
-        //         itemElement.classList.add("complete");
-        //     }
-        //     else {
-        //         itemElement.classList.remove("complete");
-        //     }
-        //     save();
-        // })
-
 
         // test and commnet out after below 3 lines
         inputElement.addEventListener("input", () => {
             item.text = inputElement.value;
         })
+
 
         circle.addEventListener("click", () => {
             item.complete = !item.complete; // Toggle the complete property
@@ -138,8 +118,7 @@
             save();
         });
 
-
-
+        // when click outside of item, item become non-editable mode
         inputElement.addEventListener("blur", () => {
             inputElement.setAttribute("readonly","");
             console.log("blllllur")
@@ -147,6 +126,7 @@
         })
         let isEditMode = false;
 
+        // click item to enter the edit mode 
         inputElement.addEventListener("click", () => {
             if (!isEditMode) {
                 inputElement.removeAttribute("readonly");
@@ -156,6 +136,7 @@
             }
         });
         
+        // press enter to exiting the edit mode 
         inputElement.addEventListener("keydown", (event) => {
             if (event.key === "Enter" && isEditMode) {
                 inputElement.setAttribute("readonly", "");
@@ -166,6 +147,8 @@
         });
 
 function updateItemAppearance(item, itemElement, circle) {
+
+
     if (item.complete) {
         itemElement.classList.add("complete");
         circle.classList.add("complete-circle")
@@ -175,44 +158,47 @@ function updateItemAppearance(item, itemElement, circle) {
         circle.classList.remove("complete-circle")
     }
 
-
     if (defaultHideCompleted) {
         // If it's set to hide completed by default, hide the item. and then put the complete item to top of list 
-        updateListOrder(); 
+        updateListOrder(listElement); 
         itemElement.classList.add('hidden');
         
     }else {
         // if it's not hidden, then just simple put the completed items to the top of the list 
-        updateListOrder(); 
+        updateListOrder(listElement); 
     }
 }
 
 
-
         removeButtonElement.addEventListener("click", () => {
-            toDo = toDo.filter(t => t.id != item.id);
-
-            itemElement.remove();
-            console.log("remooooove"); 
-            save();
+            handleRemoveButtonClick(item);
+           
+            // toDo = toDo.filter(t => t.id != item.id)
+            
+            // itemElement.remove();
+            
+            // console.log("remooooove"); 
+            // save();
         })
+
+        function handleRemoveButtonClick(item) {
+            // Find the index of the item to be removed
+            const itemIndex = toDo.findIndex(t => t.id === item.id);
+            if (itemIndex !== -1) {
+                // Remove the item from the toDo array
+                toDo.splice(itemIndex, 1);
+                // Update the DOM
+                itemElement.remove();
+                save();
+            }
+        }
 
         // if complete is in show status, and list has any items that is complete. the item will be hidden
         if (defaultHideCompleted && itemElement.classList.contains('complete')) {
-            listItem.classList.add('hidden');
+            // listItem.classList.add('hidden');
+            itemElement.classList.add('hidden'); 
         }
-
-
-       
-
-
-        
-
         return { itemElement,inputElement,removeButtonElement };
-
-
-        
-       
     }
 
   
@@ -246,11 +232,15 @@ function updateItemAppearance(item, itemElement, circle) {
 
 
      // after toggle complete,  sort the list item 
-     function updateListOrder(){
+        function updateListOrder(targetListElement) {
+     
+        // Update the order
         const completedItems = document.querySelectorAll('.complete');
-        completedItems.forEach(item => listElement.prepend(item))
+        completedItems.forEach(item => targetListElement.prepend(item));
+    
+       
     }
-
+   
 
 // This toggles between hiding and showing completed - does not hide them in the first place
 
@@ -266,6 +256,7 @@ function updateItemAppearance(item, itemElement, circle) {
         completedItems.forEach(item => item.classList.remove('hidden'));
         updateListOrder(); // Move completed items to the top
 }
+
 
 
 
