@@ -1,0 +1,15 @@
+{
+  "name": "lucien-and-phoebe-testing-project",
+  "version": "1.0.0",
+  "description": "This project is a To-Do List web application designed for testing purposes. It includes basic functionality for adding, removing, and marking tasks as completed. The focus of this readme is on the testing aspects of the project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.53.0"
+  }
+}

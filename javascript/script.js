@@ -1,89 +1,53 @@
-    // import { deafultGroups } from './index.data.js'
-   
-
-
     const listElement = document.getElementById("list");
     const todoInputField = document.getElementById('todoInput');
     const showHideCompleted = document.getElementById('showHideCompleted'); 
-    // >>>>
     const categoryButtons = document.querySelectorAll('.category-button');
     const addCategoryButton = document.getElementById('addCategory');
     const categoriesContainer = document.getElementById('categoriesContainer');
     let activeCategory = "All";
-
-     // >>>>
-    // use 'let' because need to change the variable later 
     let defaultHideCompleted = true; // A flag to set the default state to hide completed
     let toDo = [];
 
 
+// Event Listeners
 
     // Show/hind text in button to be able clicked and toggle
-    showHideCompleted.addEventListener('click', function(){
-        if (showHideCompleted.textContent == "show completed"){
-            showHideCompleted.textContent = "hide completed"; 
-             showCompleted(); 
-        }
-            else {
-            showHideCompleted.textContent = "show completed"; 
-            hideCompleted(); 
-        }
-    })
-
+    showHideCompleted.addEventListener('click', toggleCompletedItems);
      // adjust input's textarea element height based on content text
-     todoInputField.addEventListener('input', function(){
-        this.style.height = "auto"; 
-        this.style.height = this.scrollHeight + 'px'; 
-    })
-    // >>>>
-    addCategoryButton.addEventListener('click', function () {
-        const categoryName = prompt("Enter the new category name:");
-        if (categoryName) {
-            addCategory(categoryName);
-        }
-    });
-    
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const categoryName = this.dataset.category;
-            showCategory(categoryName);
-        });
-    });
-    // >>>>
-    
-    todoInputField.addEventListener('keyup', function(event){ CreateNewTodo(event)});
+    todoInputField.addEventListener('input', adjustTextAreaHeight);
+    addCategoryButton.addEventListener('click', promptToAddCategory);
+    categoryButtons.forEach(button => {button.addEventListener('click', handleCategoryButtonClick);});
+    todoInputField.addEventListener('keyup', CreateNewTodo);
+
+
+// Functions
+
     function CreateNewTodo (event) {
-        if(event.key ==="Enter" & todoInputField.value.trim() !== "" ){
-            const item = {
-                id: new Date().getTime(),
-                text: "",
-                complete: false,
-                  // >>>>
-                category: activeCategory
-                  // >>>>
-            }
-        
-
-            // input's value assign for item object's text property
-            item.text = todoInputField.value;
-            todoInputField.value = '';
-            toDo.unshift(item);
+        if(event.key ==="Enter" & todoInputField.value.trim() !== "" ){   
+            const item = createToDoItemObject();
             const { itemElement } = CreateTodoElement(item);
-
             listElement.appendChild(itemElement);
-            
+            todoInputField.value = '';
             save();
             return {itemElement}; 
 
         }}
 
-    
+    function createToDoItemObject() {
+        return {
+            id: new Date().getTime(),
+            text: todoInputField.value.trim(),
+            complete: false,
+            category: activeCategory
+        }}
+
     function CreateTodoElement(item) {
+
         const itemElement = document.createElement("div");
         itemElement.classList.add("item");
-        // >>>>
+    
         itemElement.dataset.category = item.category;
-        // >>>>
+
         const circle = document.createElement("div");
         circle.classList.add("circle");
 
@@ -91,8 +55,6 @@
         inputElement.type = "text";
         inputElement.value = item.text;
         inputElement.setAttribute("readonly","");
-
-   
 
         const removeButtonElement = document.createElement("button");
         removeButtonElement.classList.add("materialIcons","removeButton");
@@ -106,14 +68,6 @@
             itemElement.classList.add("complete");
         }
 
-        // Event
-
-        // test and commnet out after below 3 lines
-        // inputElement.addEventListener("input", () => {
-        //     item.text = inputElement.value;
-        // })
-
-
         circle.addEventListener("click", () => {
             item.complete = !item.complete; // Toggle the complete property
             updateItemAppearance(item, itemElement, circle); // Update the item's appearance
@@ -126,6 +80,7 @@
             console.log("blllllur")
             save();
         })
+
         let isEditMode = false;
 
         // click item to enter the edit mode 
@@ -148,7 +103,51 @@
             }
         });
 
-        function updateItemAppearance(item, itemElement, circle) {
+        updateItemAppearance(item, itemElement, circle);
+
+        removeButtonElement.addEventListener("click", () => {
+            handleRemoveButtonClick(item);
+        })
+
+        handleRemoveButtonClick(item);
+
+                // if complete is in show status, and list has any items that is complete. the item will be hidden
+            if (defaultHideCompleted && itemElement.classList.contains('complete')) {
+                // listItem.classList.add('hidden');
+                itemElement.classList.add('hidden'); 
+            }
+            return { itemElement,inputElement,removeButtonElement };
+    }
+
+    function adjustTextAreaHeight(){
+        this.style.height = "auto"; 
+        this.style.height = this.scrollHeight + 'px'; 
+    }
+
+    function handleCategoryButtonClick() {
+        const categoryName = this.dataset.category;
+        showCategory(categoryName);
+    }
+
+    function promptToAddCategory() {
+        const categoryName = prompt("Enter the new category name:");
+        if (categoryName) {
+            addCategory(categoryName);
+        }
+    }
+
+    function toggleCompletedItems(){
+        if (showHideCompleted.textContent == "show completed"){
+            showHideCompleted.textContent = "hide completed"; 
+            updateCompletedItemsVisibility(); 
+        }
+            else {
+            showHideCompleted.textContent = "show completed"; 
+            updateCompletedItemsVisibility(); 
+        }
+    }
+
+    function updateItemAppearance(item, itemElement, circle) {
         if (item.complete) {
             itemElement.classList.add("complete");
             circle.classList.add("complete-circle")
@@ -168,11 +167,6 @@
             updateListOrder(listElement); 
         }}
 
-
-        removeButtonElement.addEventListener("click", () => {
-            handleRemoveButtonClick(item);
-        })
-
         function handleRemoveButtonClick(item) {
             // Find the index of the item to be removed
             const itemIndex = toDo.findIndex(t => t.id === item.id);
@@ -180,17 +174,8 @@
                 // Remove the item from the toDo array
                 toDo.splice(itemIndex, 1);
                 // Update the DOM
-                itemElement.remove();
                 save();
             }}
-
-             // if complete is in show status, and list has any items that is complete. the item will be hidden
-            if (defaultHideCompleted && itemElement.classList.contains('complete')) {
-                // listItem.classList.add('hidden');
-                itemElement.classList.add('hidden'); 
-            }
-            return { itemElement,inputElement,removeButtonElement };
-    }
 
 
     // >>>>
@@ -198,7 +183,6 @@
     function showCategory(categoryName) {
         activeCategory = categoryName; // Update the active category
         const items = document.querySelectorAll('.item');
-    
         // ****** change the logic of hidden div
         items.forEach(item => {
             if (categoryName === "All") {
@@ -275,13 +259,14 @@
 
     function displayToDos() {
         load(); 
-    // >>>>
+
         const categoriesSet = new Set();
+
         toDo.forEach(item => {
             categoriesSet.add(item.category);
         });
 
-    const categories = Array.from(categoriesSet);
+        const categories = Array.from(categoriesSet);
 
     categories.forEach(category => {
         // Create a container for each category
@@ -335,22 +320,6 @@
     });
 }
 
-
-    // >>>>
-    // <<<<<
-
-    //     for (let i=0; i<toDo.length;i++) {
-    //         const item = toDo[i];
-
-    //         const {itemElement} = CreateTodoElement(item);
-
-    //         listElement.appendChild(itemElement);
-    //     }
-    // }
-     // <<<<<
-
-    displayToDos();
-
     function save() {
         const save = JSON.stringify(toDo);
         localStorage.setItem("my_to_dos", save);
@@ -366,29 +335,31 @@
 
 
      // after toggle complete,  sort the list item 
-        function updateListOrder(targetListElement) {
+    //     function updateListOrder(targetListElement) {
      
-        // Update the order
-        const completedItems = document.querySelectorAll('.complete');
-        completedItems.forEach(item => targetListElement.prepend(item));
-    }
+    //     // Update the order
+    //     const completedItems = document.querySelectorAll('.complete');
+    //     completedItems.forEach(item => targetListElement.prepend(item));
+    // }
    
 
 // This toggles between hiding and showing completed - does not hide them in the first place
 
 
-    function hideCompleted(){
-        defaultHideCompleted = true; // Set the flag to hide completed items
-        const completedItems = document.querySelectorAll('.complete');
-        completedItems.forEach(item => item.classList.add('hidden'));
-}
-    function showCompleted(){
-        defaultHideCompleted = false; // Set the flag to show completed items
-        const completedItems = document.querySelectorAll('.complete');
-        completedItems.forEach(item => item.classList.remove('hidden'));
-        updateListOrder(); // Move completed items to the top
-}
-// >>>>
+//     function hideCompleted(){
+//         defaultHideCompleted = true; // Set the flag to hide completed items
+//         const completedItems = document.querySelectorAll('.complete');
+//         completedItems.forEach(item => item.classList.add('hidden'));
+// }
+
+//     function showCompleted(){
+//         defaultHideCompleted = false; // Set the flag to show completed items
+//         const completedItems = document.querySelectorAll('.complete');
+//         completedItems.forEach(item => item.classList.remove('hidden'));
+//         updateListOrder(); // Move completed items to the top
+// }
+
+
 // Modify updateListOrder function to consider categories
 function updateListOrder(targetListElement) {
     const completedItems = document.querySelectorAll('.complete');
@@ -398,6 +369,20 @@ function updateListOrder(targetListElement) {
         }
     });
 }
+
+function updateCompletedItemsVisibility() {
+    const completedItems = document.querySelectorAll('.complete');
+    completedItems.forEach(item => {
+        if (defaultHideCompleted) {
+            item.classList.add('hidden');
+        } else {
+            item.classList.remove('hidden');
+        }
+    });
+    updateListOrder(listElement);
+}
+
+displayToDos();
 // >>>>
 
 
