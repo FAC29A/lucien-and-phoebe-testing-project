@@ -1,191 +1,292 @@
+/*Global variables*/
+:root {
+  --medium-dark-grey: rgba(37, 37, 37, 0.719);
 
-/* Add styles for category buttons and container */
-#categoriesContainer {
-    display: flex;
-    margin-bottom: 10px;
-}
+  --toDoColour: #a3cef1;
+  --inProgressColour: #ffca28;
+  --completedColour: #81c784;
+  --box-shadow-light: 0 0 1.25rem rgba(0, 0, 0, 0.58);
+  --box-shadow-hard: 0 0 3.75rem rgba(0, 0, 0, 0.9);
 
-.category-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 10px;
-}
-
-.category-button.active {
-    font-weight: bold;
-}
-
-/* Style for addCategory button */
-#addCategory {
-    font-size: 16px;
-    margin-right: 10px;
-}
-
-/* Adjust the header styles */
-.app header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.app header h1 {
-    font-size: 24px;
-    font-weight: 600; /* Increase font weight for the title */
-}
-
-.app header button {
-    font-size: 16px;
-}
-
-/* Adjust input-container styles */
-.input-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px; /* Increase margin for better spacing */
-}
-
-/* Add styles for the new category button */
-#addCategory {
-    font-size: 16px;
-}
-
-/* Adjust textarea styles */
-textarea {
-    font-size: 16px;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    background-color: transparent;
-    width: 100%; /* Adjust width to fill the container */
-    margin-right: 10px; /* Add margin for spacing */
-}
-
-
-
-
-/* * {
-
-	box-sizing: border-box;
-
-	font-family: sans-serif;
-}
-
-button {
-	appearance: none;
-	background: none;
-	outline: none;
-	border: none;
-	cursor: pointer;
+  --sideBar-linear-dark-blue: #909fea;
+  --sideBar-linear-green: #9ff5ea;
+  --sideBar-linear-white: #eef1e5;
+  --folder-blue: #6c7ea6;
+  --black: #000000;
+  --white: #ffffff;
+  --blue: #5226ff;
+  --font-inter: "Inter", sans-serif;
 }
 
 body {
-	font-family: Arial, sans-serif;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
 }
 
-
-
-.app {
-	width: 100%;
-	max-width: 768px;
+/* -------------------------sidebar  */
+.folderContainer {
+  background-color: var(--folder-blue);
+  width: 7rem;
+  height: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 20%;
+}
+h2 {
+  font-size: 0.8em;
+  color: var(--white);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-family: var(--font-inter);
+  font-weight: 400;
 }
 
+#sidebar {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  box-shadow: var(--box-shadow-light);
+  padding: 2rem;
+  height: fit-content;
 
-
-.app header h1 {
-	
-	font-size: 24px;
-	font-weight: 400;
+  background: linear-gradient(
+    90deg,
+    var(--sideBar-linear-dark-blue) 0%,
+    var(--white) 100%
+  );
 }
 
-.app header button {
-	
-	font-size: 20px;
-	
-	
+/*------------------------- Topbar */
+h1 {
+  font-size: 2rem;
+  font-family: var(--font-inter);
+  margin-bottom: 0;
 }
 
-.item {
-	display: flex;
-	
-
-	margin-bottom: 1rem;
+#showHideCompleted {
+  background: none;
+  border: none;
+  width: fit-content;
+  font-family: var(--font-inter);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
-/* 
-.item input[type="checkbox"] {
-	margin-right: 1rem;
-} */
-
-.item input[type="text"] {
-	appearance: none;
-	background: none;
-	border: none;
-	outline: none;
-	font-weight: 400;
-	color: #000000;
-	/* font-size: 20px; */
-	flex: 1 1 0%;
-	margin-right: 1rem;
+.outerFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 70vh;
+  z-index: 1;
 }
 
-.item input[type="text"]:not(:readonly) {
-	border-bottom: 2px solid #000000;
+.groupsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2rem;
 }
 
-.item.complete {
-	opacity: 0.7;
+/*------------- list item */
+
+div.topBar {
+  display: flex;
+  flex-direction: row;
+}
+input.groupTitle {
+  font-size: 1.3rem;
+  background-color: transparent;
+  border: none;
+  color: var(--blue);
+  font-weight: 600;
+  width: 30%;
 }
 
-.item.complete input[type="text"] {
-	text-decoration: line-through;
+ul {
+  padding: 0;
+  list-style-type: none;
 }
 
+.listAndField {
+  display: flex;
+  flex-direction: column;
 
-
-.actions button {
-	color: #010101;
-	margin-right: 1rem;
-	opacity: 0.8;
-	transform: 0.1s;
+  justify-content: space-between;
 }
 
-
-
-.actions button:hover {
-	opacity: 1;
+/* eachs item container and input container  */
+li.taskItem,
+div.addTaskFieldAndButton {
+  display: flex;
+  width: 85%;
+  gap: 0.2rem;
 }
 
+input.addTaskField,
+input.taskText {
+  display: flex;
+  font-size: 1rem;
+  border-style: none;
+  list-style-type: none;
+  padding: 0.5rem 0.5rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 0.05rem solid black;
+  margin-bottom: 0;
+  text-align: left;
 
+  width: 100%;
+}
 
+.taskCircle,
 .circle {
-    width: 20px;
-    height: 20px;
-    border: 1px dotted #ccc; /* Dotted border for the circle */
-    border-radius: 50%;
-    margin-right: 10px;
-    cursor: pointer; 
+  width: 20px;
+  height: 20px;
+  border: 1px dotted #ccc; /* Dotted border for the circle */
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
-.input-container {
-    display: flex;
-    
+button.deleteTaskButton,
+button.deleteGroupButton {
+  background-color: transparent;
+  border: none;
+  outline: none;
 }
+
+button.deleteGroupButton {
+  cursor: pointer;
+  height: auto;
+  width: 4%;
+}
+
+#createGroupButton {
+  background-image: url("../images/newGroup.png");
+  background-color: transparent;
+  height: 3rem;
+  width: 3rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
 .complete-circle {
-    background-color: blue;}
+  background-color: blue;
+}
 
 .hidden {
-		display: none;
-	  }
+  display: none;
+}
 
+/*------- mobile nav bar */
 
-textarea{
-		font-size: 16px;
-		border: none;
-		border-bottom: 1px solid #ccc;
-		background-color: transparent;
-		width: 90%; 
-	   
-	} */
-	
+.sidebar {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+  width: 100%;
+  position: absolute;
+  top: -1000px;
+  opacity: 1;
+  transition: all 0.5s ease;
+  z-index: -1;
+}
+
+.sidebar.active {
+  background: #f9dadb;
+  top: 100%;
+  opacity: 1;
+  transition: all 0.5s ease;
+  z-index: 99;
+  height: 60vh;
+  font-size: 1.6rem;
+}
+
+#navbar-logo {
+  padding-left: 25px;
+}
+
+.navbar-toggle .bar {
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  transition: all 0.3s ease-in-out;
+  background: var(--folder-blue);
+}
+
+#mobile-menu {
+  position: absolute;
+  top: 20%;
+  right: 5%;
+  transform: translate(5%, 20%);
+}
+
+.navbar-toggle .bar {
+  display: block;
+  cursor: pointer;
+}
+
+#mobile-menu.is-active .bar:nth-child(2) {
+  opacity: 0;
+}
+#mobile-menu.is-active .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+#mobile-menu.is-active .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.navbar-item {
+  height: 80px;
+  font-family: "Chonburi&family", "Impact", "Haettenschweiler",
+    "Arial Narrow Bold", sans-serif;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.navbar-links:hover {
+  text-decoration: none;
+  color: #f9dadb;
+  background-color: #ed625b;
+  transition: all 0.3s ease;
+}
+
+/* medium screen */
+
+@media (min-width: 370px) {
+  #sidebar {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    box-shadow: var(--box-shadow-light);
+    padding: 2rem;
+    height: fit-content;
+    flex-wrap: wrap;
+
+    background: linear-gradient(
+      180deg,
+      var(--sideBar-linear-dark-blue) 0%,
+      var(--sideBar-linear-green) 60%,
+      var(--sideBar-linear-white) 100%
+    );
+  }
+}
