@@ -171,7 +171,7 @@ button.deleteGroupButton {
 }
 
 #createGroupButton {
-  background-image: url("../images/newGroup.png");
+  background-image: url("../images/circle-plus-solid.svg");
   background-color: transparent;
   height: 3rem;
   width: 3rem;
@@ -188,7 +188,7 @@ button.deleteGroupButton {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /*------- mobile nav bar */

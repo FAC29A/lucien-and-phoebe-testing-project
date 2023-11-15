@@ -37,7 +37,7 @@ function generateUniqueGroupID() {
   groupId++;
   return uniqueGroupID;
 }
-
+let showHideCompleted = document.querySelector("#showHideCompleted");
 // Show/hind button change text
 showHideCompleted.addEventListener("click", function () {
   if (showHideCompleted.textContent == "show completed") {
@@ -165,7 +165,7 @@ function showCompleted() {
   defaultHideCompleted = false; // Set the flag to show completed items
   const completedItems = document.querySelectorAll(".complete");
   completedItems.forEach((item) => item.classList.remove("hidden"));
-  updateListOrder(); // Move completed items to the top
+  // updateListOrder(); // Move completed items to the top
 }
 
 function handleTaskDeleteButton(item, taskItem, containerElement) {
