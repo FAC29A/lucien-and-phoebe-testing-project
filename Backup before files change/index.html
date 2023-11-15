@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/styles.css" rel="stylesheet">
+        <title>To-Do-List</title>
+        <!-- <script src="javascript/script.js"></script> -->
+
+    </head>
+    <body>
+        <div class="app">
+
+			<header>
+				<h1>Your Todos</h1>
+                <!-- >>> -->
+                <div id="categoriesContainer">
+                    <!-- Add default categories -->
+                    <button class="category-button active" data-category="All">All</button>
+                    <button class="category-button" data-category="Work">Work</button>
+                    <button class="category-button" data-category="Personal">Personal</button>
+                </div>
+                <button id="addCategory">Add Category</button>
+                <!-- >>> -->
+                <button id="showHideCompleted">show completed</button>
+			</header>
+			<div class="todo-list" id="list">
+			</div>
+            <!-- >>>> -->
+            <div class="input-container">
+                <div class="circle"></div>
+                <textarea type="text" id="todoInput" placeholder="Add a to-do item..."></textarea>
+            </div>
+             <!-- >>>> -->
+
+		</div>
+        <script src="javascript/script.js"></script>
+        <script src="javascript/test-helpers.js"></script>
+        <script src="javascript/test1.js"></script>
+    </body>
+</html>
