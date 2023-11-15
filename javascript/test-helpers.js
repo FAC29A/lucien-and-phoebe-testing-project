@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 function equal(actual, expected, message) {
   if (actual === expected) {
     const defaultMessage = `Expected ${expected} and received ${actual}`;

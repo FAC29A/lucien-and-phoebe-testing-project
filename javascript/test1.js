@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 
 
 
@@ -17,8 +18,10 @@ test("CreateNewTodo should add a new to-do item when Enter key is pressed and in
     equal(toDo.length, initialToDoLength +1, "a new item is added to the toDo list");
     equal(todoInputField.value, '', "the input field is cleared after adding a new item");
   
-   itemElement.remove()
+    itemElement.remove();
 
+    //  delete from local storage
+   
 })
 
 test("CreateTodoElement Converts Text Property to Input Element Value", ()=>{
